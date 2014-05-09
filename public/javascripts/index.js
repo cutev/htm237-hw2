@@ -47,9 +47,9 @@ function save(){
   mainUl.find('li').each(function(){
     // TODO: 修改此處，把「已完成」與否一併存入。
     arr.push({
-        text: $(this).find('span').text(),
-        isDone: $(this).hasClass('is-done')
-    });
+    text: $(this).find('span').text(),
+    isDone: $(this).hasClass('is-done')
+  });
   });
 
   // 把陣列轉成 JSON 字串後存進 localStorage
@@ -68,11 +68,13 @@ function load(){
   // 對於陣列裡的每一個項目，插入回 mainUl 裡。
   for(i=0; i<arr.length; i+=1){
     li = $(tmpl);
-    // TODO: 修改此處，讀取「已完成」與否，來決定是否要加上 `is-done`。
-    li.appendTo(mainUl).find('span').text(arr[i]);
-    if(arr[i].isDone){
-      li.addClass('is-done');
+  li.appendTo(mainUl).find('span').text(arr[i].text);
+  if(arr[i].isDone){
+    li.addClass('is-done')
     }
+  
+    // TODO: 修改此處，讀取「已完成」與否，來決定是否要加上 `is-done`。
+   // li.appendTo(mainUl).find('span').text(arr[i]);
   }
 }
 
@@ -96,13 +98,15 @@ mainUl.on('sortstart', function(){
 // 刪除項目
 deleteUl.on('sortreceive', function(e, ui){
   ui.item.remove();
-  save();
+ 
 });
 
 // [TODO] 回家作業
 // 完成項目
-doneUl.on('sortreceive', function(e,ui){
-ui.item.appendTo(mainUl).addClass('is-done');
+doneUl.on('sortreceive', function(e, ui){
+  ui.item.appendTo(mainUl). addClass('is-done');
+  save();
+ 
 });
 
 }());
